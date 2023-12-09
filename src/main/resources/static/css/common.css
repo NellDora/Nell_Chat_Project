@@ -1,0 +1,59 @@
+        #top-header{
+          position: fixed;
+          width: 100%;
+          z-index :3;
+        }
+
+        .header-shadow{
+          width: 100vw;
+          height: 70px;
+        }
+
+        #menubar{
+          position: fixed;
+          width: 100%;
+          z-index :3;
+        }
+
+        .menubar-shadow{
+            width :100vw;
+            height:55px;
+            background-color : red;
+        }
+
+        .main-container{
+            width: 100%;
+        }
+
+        .menuver:hover{
+          background-color: gray;
+        }
+
+        .baunt{
+          left: -100%;
+          transition: 600ms;
+          width: 280px;
+          height: 100vh;
+          position: fixed;
+
+        }
+
+        .rebaunt{
+          left:0%;
+        }
+
+        .left-container{
+          width: 10%;
+          float:left;
+          height: 100vh;
+        }
+        .mid-container{
+          width: 80%;
+          float: left;
+          height: 100vh;
+        }
+        .right-container{
+          float: left;
+          width: 10%;
+          height: 100vh;
+        }

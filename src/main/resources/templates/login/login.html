@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" href="test1.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+<!-- ---------------------헤더--------------------- -->
+<div th:replace="~{/fragment/header :: header}"></div>
+<!-- ---------------------헤더--------------------- -->
+
+<!------------------------메인 컨테이너--------------------------------------->
+<div class="main-container">
+
+
+    <!--   --------------------사이드 바-------------------------->
+    <div th:replace="~{/fragment/sidebar :: sidebar}"></div>
+    <!--   --------------------사이드 바-------------------------->
+
+    <!-- left-container -->
+    <div class="left-container">
+        ghdn
+    </div>
+    <!-- left-container 끝 -->
+
+    <!--  미드 컨테이너-->
+    <div class="mid-container">
+
+        <div class="" style="width: 80%; float: left; margin-left: 10%; margin-top: 2%;">
+            <!--             디자인                         -->
+
+            <div style="width: 50%; margin :auto; margin-top: 10%;">
+                <form th:action="@{/login}" method="post" th:object="${loginDTO}">
+                    <img class="mb-4" src="" alt="" width="72" height="57">
+                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="id" th:field="*{userId}" placeholder="아이디를 입력하세요">
+                        <label for="id">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요.">
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div class="form-check text-start my-3">
+                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Remember me
+                        </label>
+                    </div>
+                    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+                </form>
+
+            </div>
+
+
+        </div><!--             디자인                         -->
+
+
+    </div>
+    <!-- 미드 컨테이너 끝-->
+
+    <!-- right-container-->
+    <div class="right-container">
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+    const Nell = document.getElementById('Nell');
+    const baunt = document.getElementById('baunt');
+
+    if (Nell) {
+      Nell.addEventListener('click', () => {
+        baunt.classList.toggle('rebaunt')
+      })
+    }
+  </script>
+</body>
+</html>
