@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" href="test1.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<!-- ---------------------헤더--------------------- -->
+<div th:replace="~{/fragment/header :: header}"></div>
+<div th:replace="~{/fragment/menubar :: menubar}"></div>
+<!-- ---------------------헤더--------------------- -->
+
+<!------------------------메인 컨테이너--------------------------------------->
+<div class="main-container">
+
+
+    <!--   --------------------사이드 바-------------------------->
+    <div th:replace="~{/fragment/sidebar :: sidebar}"></div>
+    <!--   --------------------사이드 바-------------------------->
+
+    <!-- left-container -->
+    <div class="left-container">
+        ghdn
+    </div>
+    <!-- left-container 끝 -->
+
+    <!--  미드 컨테이너-->
+    <div class="mid-container">
+
+        <div class="" style="width: 80%; float: left; margin-left: 10%; margin-top: 2%;" ><!--             디자인                         -->
+            <div class="inner container" style="width: 60%; margin: auto;">
+
+                <div class="team-container" style="height: 6%;">
+                    <h3 class="mb-3">채팅방 생성</h3><hr>
+                </div>
+
+                <form method="post" th:action="@{/publicChat/createChatRoom}" th:object="${publicChatRoomDTO}">
+
+                    <div class="title-container" style="height: 6%;">
+                        <h4 class="mb-3">채팅방 정보</h4>
+                    </div>
+
+
+                    <div class="col-12">
+                        <label for="name" class="form-label">채팅방 이름</label>
+                        <input type="text" class="form-control" id="name" th:field="*{roomName}" placeholder="프로젝트명을 입력해주세요.">
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">채팅방 설명</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="20" th:field="*{description}"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="theme" class="form-label">프로젝트 테마</label>
+                        <input type="text" class="form-control" id="theme" placeholder="제목을 입력해주세요">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">공개여부</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:field="*{roomType}" id="exampleRadios1" value="UNLOCK" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                공개방
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:field="*{roomType}" id="exampleRadios2" value="LOCK">
+                            <label class="form-check-label" for="exampleRadios2">
+                                비공개방
+                            </label>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="col-12">
+                        <label for="password" class="form-label">패스워드</label>
+                        <input type="password" class="form-control" id="password" placeholder="제목을 입력해주세요">
+                    </div>
+
+                    <div>
+                        <br>
+                        <button type="submit" class="btn btn-secondary">생성하기</button>
+                        <button type="button" class="btn btn-secondary">취소하기</button>
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+
+        </div><!--             디자인                         -->
+
+    </div>
+    <!-- 미드 컨테이너 끝-->
+
+    <!-- right-container-->
+    <div class="right-container">
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+      const Nell = document.getElementById('Nell');
+      const baunt = document.getElementById('baunt');
+
+      if(Nell){
+        Nell.addEventListener('click', ()=>{
+          baunt.classList.add('rebaunt')
+        })
+      }
+  </script>
+</body>
+</html>

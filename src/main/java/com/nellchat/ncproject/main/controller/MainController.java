@@ -12,4 +12,10 @@ public class MainController {
 
         return "/main/main";
     }
+
+    @GetMapping("/main/info")
+    public String info(){
+
+        return "/info/info";
+    }
 }

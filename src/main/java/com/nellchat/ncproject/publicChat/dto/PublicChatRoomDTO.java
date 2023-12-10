@@ -30,5 +30,7 @@ public class PublicChatRoomDTO {
     private int numberOfPerson;
 
     private JoinState joinState;
+
+    private String password;
 }
 

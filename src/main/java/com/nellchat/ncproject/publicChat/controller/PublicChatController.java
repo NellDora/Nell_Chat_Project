@@ -98,8 +98,22 @@ public class PublicChatController {
 
     @GetMapping("/createChatRoom")
     public String createChatRoom(Model model){
+        model.addAttribute("publicChatRoomDTO", new PublicChatRoomDTO());
+        return "/publicchat/create_public_chatroom";
+    }
 
-        return "";
+    @PostMapping("/createChatRoom")
+    public String createChatRoom(@ModelAttribute("publicChatRoomDTO") PublicChatRoomDTO publicChatRoomDTO , @SessionAttribute(LoginSession.Login_User) Long userNum){
+
+        User findUser = userService.findByNumber(userNum);
+
+        PublicChatRoom publicChatRoom =
+                PublicChatRoom.createPublicChatRoom(publicChatRoomDTO.getRoomName(),
+                        publicChatRoomDTO.getDescription(),findUser, publicChatRoomDTO.getRoomType(), publicChatRoomDTO.getPassword());
+
+        combinePublicChatService.saveForPublicChatRoom(publicChatRoom);
+
+        return "redirect:/publicChat/main";
     }
 
     @GetMapping("/info/{chatRoomId}")

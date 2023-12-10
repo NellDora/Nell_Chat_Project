@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" href="test1.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<!-- ---------------------헤더--------------------- -->
+<div th:replace="~{/fragment/header :: header}"></div>
+
+<div th:replace="~{/fragment/menubar :: menubar}"></div>
+
+
+
+<!-- ---------------------헤더--------------------- -->
+
+<!------------------------메인 컨테이너--------------------------------------->
+<div class="main-container">
+
+
+    <!--   --------------------사이드 바-------------------------->
+    <div th:replace="~{/fragment/sidebar :: sidebar}"></div>
+    <!--   --------------------사이드 바-------------------------->
+
+    <!-- left-container -->
+    <div class="left-container">
+        ghdn
+    </div>
+    <!-- left-container 끝 -->
+
+    <!--  미드 컨테이너-->
+    <div class="mid-container">
+
+        <div class="" style="width: 80%; float: left; margin-left: 10%; margin-top: 2%;" ><!--             디자인                         -->
+            <div class="inner-left-container" style="width: 50%; float:left;">
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group">
+                        프로젝트
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">List group item heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">now</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Another title here</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">3d</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Third heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">1w</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group">
+                        업데이트내용
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">List group item heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">now</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Another title here</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">3d</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Third heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">1w</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- left container 끝 -->
+
+
+            <div class="inner-right-container" style="width: 50%; float:left;">
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group">
+                        공개 채팅방
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">List group item heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">now</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Another title here</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">3d</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Third heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">1w</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                    <div class="list-group">
+                        정보게시판
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">List group item heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">now</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Another title here</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph that goes a little longer so it wraps to a new line.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">3d</small>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                            <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                            <div class="d-flex gap-2 w-100 justify-content-between">
+                                <div>
+                                    <h6 class="mb-0">Third heading</h6>
+                                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                                </div>
+                                <small class="opacity-50 text-nowrap">1w</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- right container 끝 -->
+
+        </div><!--             디자인                         -->
+
+    </div>
+    <!-- 미드 컨테이너 끝-->
+
+    <!-- right-container-->
+    <div class="right-container">
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+      const Nell = document.getElementById('Nell');
+      const baunt = document.getElementById('baunt');
+
+      if(Nell){
+        Nell.addEventListener('click', ()=>{
+          baunt.classList.toggle('rebaunt')
+        })
+      }
+  </script>
+</body>
+</html>

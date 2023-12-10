@@ -56,12 +56,14 @@ public class PublicChatRoom {
     protected PublicChatRoom() {
     }
 
-    public static PublicChatRoom createPublicChatRoom(String roomName,String description, User master){
+    public static PublicChatRoom createPublicChatRoom(String roomName,String description, User master, RoomType roomType, String password){
         PublicChatRoom chatRoom = new PublicChatRoom();
         chatRoom.roomName = roomName;
         chatRoom.description=description;
         chatRoom.master =master;
         chatRoom.roomCode = createRoomCode();
+        chatRoom.roomType = roomType;
+        chatRoom.password = password;
         return chatRoom;
     }
 
