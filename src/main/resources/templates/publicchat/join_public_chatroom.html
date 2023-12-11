@@ -32,42 +32,29 @@
         <div class="" style="width: 80%; float: left; margin-left: 10%; margin-top: 2%;" ><!--             디자인                         -->
             <div class="inner container" style="width: 60%; margin: auto;">
 
-                <div class="team-container" style="height: 6%;">
-                    <h3 class="mb-3"></h3><hr>
-                </div>
-
-                <form method="post" th:action="@{/project/createResume}" th:object="${resumeDTO}">
-
-                    <input type="hidden" th:value="${projectId}" name="projectId">
+                <div th:object="${publicChatRoomDTO}">
+                    <div class="team-container" style="height: 6%;">
+                        <h3 class="mb-3">프로젝트명 : <span th:text="*{roomName}"></span></h3><hr>
+                    </div>
 
 
                     <div class="title-container" style="height: 6%;">
-                        <h4 class="mb-3">프로젝트 명 </h4>
+                        <h4 class="mb-3">채팅방 마스터 : <span th:text="*{masterName}"></span></h4>
                     </div>
 
-
-                    <div class="col-12">
-                        <label for="title" class="form-label">제목</label>
-                        <input type="text" class="form-control" id="title" placeholder="제목." th:field="*{title}">
+                    <div class="title-container" style="height: 6%;">
+                        <h4 class="mb-3">채팅방 설명 : <span th:text="*{description}"></span></h4>
                     </div>
 
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">참가 포부</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" th:field="*{content}"></textarea>
+                    <div class="title-container" style="height: 6%;">
+                        <h4 class="mb-3">채팅방 총 인원 : <span th:text="*{numberOfPerson}"></span></h4>
                     </div>
+                </div>
 
-
-
-                    <div>
-                        <br>
-                        <button type="submit" class="btn btn-secondary">제출하기</button>
-                        <button type="button" class="btn btn-secondary">취소하기</button>
-                    </div>
-
-
-
-                </form>
+                <div> 채팅방에 입장하시겠습니까?
+                    <button  th:onclick="|location.href='@{/publicChat/roomCode={roomCode}(roomCode=${chatroom.roomCode})}';|">네</button>
+                    <button  th:onclick="|location.href='@{/publicChat/main}';|">아니요</button>
+                </div>
 
 
             </div>

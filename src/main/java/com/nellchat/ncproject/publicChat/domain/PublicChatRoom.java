@@ -53,6 +53,9 @@ public class PublicChatRoom {
     @OneToMany(mappedBy = "chatRoom")
     List<PublicChatUser> chatUserList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "publicChatRoom")
+    List<PublicChat> publicChatList = new ArrayList<>();
+
     protected PublicChatRoom() {
     }
 

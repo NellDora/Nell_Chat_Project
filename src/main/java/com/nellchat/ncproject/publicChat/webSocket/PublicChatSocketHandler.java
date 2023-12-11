@@ -79,7 +79,7 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
         PublicChatUser findByPublicChatUser =
                 combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findUser, findPublicChatRoom);
 
-        PublicChat publicChat = PublicChat.createPublicChat(sendMessage,findByPublicChatUser );
+        PublicChat publicChat = PublicChat.createPublicChat(sendMessage,findByPublicChatUser,findPublicChatRoom);
 
         combinePublicChatService.saveForPublicChat(publicChat);
         //---------------------해당하는 room에 메세지 전송--------------------

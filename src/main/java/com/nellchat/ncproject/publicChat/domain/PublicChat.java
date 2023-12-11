@@ -34,6 +34,10 @@ public class PublicChat {
     @Column(name = "chat_state")
     private ChatState chatState;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "public_chat_room")
+    private PublicChatRoom publicChatRoom;
+
 
 
     @OneToMany(mappedBy = "lastViewChat")
@@ -42,12 +46,13 @@ public class PublicChat {
     protected PublicChat() {
     }
 
-    public static PublicChat createPublicChat(String message, PublicChatUser publicChatUser){
+    public static PublicChat createPublicChat(String message, PublicChatUser publicChatUser, PublicChatRoom publicChatRoom){
         PublicChat publicChat = new PublicChat();
         publicChat.message = message;
         publicChat.publicChatUser = publicChatUser;
         publicChat.chatState = ChatState.NORMAL;
         publicChat.sendTime = Date.valueOf(LocalDate.now());
+        publicChat.publicChatRoom = publicChatRoom;
         return publicChat;
 
     }

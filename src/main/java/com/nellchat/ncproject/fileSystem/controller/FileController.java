@@ -20,8 +20,8 @@ public class FileController {
 
     @GetMapping("/excel")
     public String exelExtract(){
-        String title = "테스트다2";
-        fileExtractionService.ExcelExtract(title);
+        String title = "테스트다3";
+        fileExtractionService.ExcelExtract(6L, title);
         return null;
     }
 

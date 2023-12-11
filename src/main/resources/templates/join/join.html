@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" href="test1.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <style>
+
+
+        .id_pass{
+            display:none
+        }
+
+        .id_noPass{
+            color:red;
+            display:none;
+        }
+
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+    </style>
+
+</head>
+<body>
+<!-- ---------------------헤더--------------------- -->
+<div th:replace="~{/fragment/header :: header}"></div>
+<!-- ---------------------헤더--------------------- -->
+
+<!------------------------메인 컨테이너--------------------------------------->
+<div class="main-container">
+
+
+    <!--   --------------------사이드 바-------------------------->
+    <div th:replace="~{/fragment/sidebar :: sidebar}"></div>
+    <!--   --------------------사이드 바-------------------------->
+
+    <!-- left-container -->
+    <div class="left-container">
+        ghdn
+    </div>
+    <!-- left-container 끝 -->
+
+    <!--  미드 컨테이너-->
+    <div class="mid-container">
+
+        <div class="" style="width: 80%; float: left; margin-left: 10%; margin-top: 2%;">
+            <!--             디자인                         -->
+
+            <div class="mid-container" style="margin-top: 7%; margin-left: 25%; float: left;">
+                [회원가입]
+                <div>
+                    <form action="" th:action th:object="${userDTO}" method="post">
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="user" style="width: 130px; ">아이디 </span>
+                            <input type="text" th:field="*{userId}" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" id="user-id">
+                            <button type="button" class="btn btn-secondary" id="dupCheckBtn" th:onclick="idDupChecking()">아이디 중복확인</button>
+                        </div>
+                        <div>
+                            <span class="id_pass">사용 가능한 아이디입니다. </span>
+                            <span class="id_noPass">아이디가 이미 존재합니다.</span>
+                        </div>
+
+
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="addon-wrapping2" style="width: 130px; margin-top: 2%;">비밀번호</span>
+                            <input type="password" th:field="*{passwordOne}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" style=" margin-top: 2%;">
+                        </div>
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="addon-wrapping3" style="width: 130px; margin-top: 2%;">비밀번호 확인</span>
+                            <input type="password" th:field="*{passwordTwo}" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" style=" margin-top: 2%;">
+                        </div>
+
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="addon-wrapping4" style="width: 130px; margin-top: 2%;">이름</span>
+                            <input type="text"  th:field="*{userName}" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="addon-wrapping" style=" margin-top: 2%;">
+                        </div>
+
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="addon-wrapping6" style="width: 130px; margin-top: 2%;">이름</span>
+                            <input type="text"  th:field="*{userNickname}" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="addon-wrapping" style=" margin-top: 2%;">
+                        </div>
+
+                        <div class="input-group flex-nowrap w-50">
+                            <span class="input-group-text" id="addon-wrapping5" style="width: 130px; margin-top: 2%;">E-mail</span>
+                            <input type="text"  class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="addon-wrapping" style=" margin-top: 2%;">
+                        </div>
+
+                        <div class="btn-container" style="margin-left: 20%; margin-top: 5%;">
+                            <span><button type="submit"  class="btn btn-secondary">가입하기</button> <button type="button" class="btn btn-secondary">취소</button></span>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div> <!-- ----------------------메인 미드 컨테이너--------------------- 끝-->
+
+
+
+        </div> <!-- 메인 컨테이너 끝-->
+
+
+        </div><!--             디자인                         -->
+
+
+    </div>
+    <!-- 미드 컨테이너 끝-->
+
+    <!-- right-container-->
+    <div class="right-container">
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<script>
+    const Nell = document.getElementById('Nell');
+    const baunt = document.getElementById('baunt');
+
+    if (Nell) {
+      Nell.addEventListener('click', () => {
+        baunt.classList.toggle('rebaunt')
+      })
+    }
+
+    function idDupChecking() {
+        var userId =
+            //ajax 시작
+            $.ajax({
+                type:"POST",
+                url:"/idCheck",
+                data:{"checkId" : $('#user-id').val()},
+
+                //성공했을 때
+                success:function(data){
+
+                    if(data == 'PASS'){
+                        $(".id_pass").css("display","inline-block");
+                        $(".id_noPass").css("display","none");
+                    }else{
+                        $(".id_pass").css("display","none");
+                        $(".id_noPass").css("display","inline-block");
+                    }//success end point
+                }
+            }); //ajax end point
+
+
+    };//function End
+  </script>
+</body>
+</html>

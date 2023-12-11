@@ -1,5 +1,8 @@
 package com.nellchat.ncproject.fileSystem.service;
 
+import com.nellchat.ncproject.publicChat.domain.PublicChat;
+import com.nellchat.ncproject.publicChat.service.CombinePublicChatService;
+import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,18 +15,23 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FileExtractionService {
 
+    private final CombinePublicChatService combinePublicChatService;
 
-    public void ExcelExtract(String title){
+    public void ExcelExtract(Long chatRoomNum, String title){
+
+
+       List<PublicChat> publicChats = combinePublicChatService.findByAllForPublicChat(chatRoomNum);
 
         File file = new File("C:\\Users\\Nell\\Desktop\\UploadFileRepository\\"+ title+".xlsx");
-        // 새로운 워크북 생성
         Workbook workbook = new XSSFWorkbook();
 
-        // "Sheet1"이라는 이름의 시트 생성
         Sheet sheet = workbook.createSheet("Sheet1");
 
         // 헤더 행 생성
@@ -46,25 +54,31 @@ public class FileExtractionService {
         Cell cell0_3 = row.createCell(3);
         cell0_3.setCellValue("전송 날짜");
 
-        // 두 번째 행 생성
-        Row row2 = sheet.createRow(1);
+        int rownum =1;
+        Row row2;
+        for(PublicChat publicChat : publicChats){
+            row2 = sheet.createRow(rownum);
 
-        // 첫 번째 열(0번 열)에 데이터 추가
-        Cell cell1_0 = row2.createCell(0);
-        cell1_0.setCellValue("1");
+            // 첫 번째 열(0번 열)에 데이터 추가
+            Cell cell1_0 = row2.createCell(0);
+            cell1_0.setCellValue(publicChat.getId());
 
-        // 다음 열(1번 열)에 데이터 추가
-        Cell cell1_1 = row2.createCell(1);
-        cell1_1.setCellValue("운영자");
+            // 다음 열(1번 열)에 데이터 추가
+            Cell cell1_1 = row2.createCell(1);
+            cell1_1.setCellValue(publicChat.getPublicChatUser().getUser().getUserName());
 
-        Cell cell1_2 = row2.createCell(2);
-        cell1_1.setCellValue("다들 친하게 지내세요");
+            Cell cell1_2 = row2.createCell(2);
+            cell1_2.setCellValue(publicChat.getMessage());
 
-        Cell cell1_3 = row2.createCell(3);
-        cell1_1.setCellValue(LocalDate.now());
+            Cell cell1_3 = row2.createCell(3);
+            cell1_3.setCellValue(publicChat.getSendTime().toString());
+
+            rownum ++;
+
+        }
 
 
-        // 워크북 내용을 파일에 쓰기
+
         try (
                 FileOutputStream fileOut = new FileOutputStream(file)) {
             workbook.write(fileOut);
@@ -75,7 +89,6 @@ public class FileExtractionService {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // 리소스를 해제하기 위해 워크북을 닫습니다.
             try {
                 workbook.close();
             } catch (IOException e) {

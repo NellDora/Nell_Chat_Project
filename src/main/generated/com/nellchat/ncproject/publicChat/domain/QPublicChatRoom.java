@@ -34,6 +34,8 @@ public class QPublicChatRoom extends EntityPathBase<PublicChatRoom> {
 
     public final StringPath password = createString("password");
 
+    public final ListPath<PublicChat, QPublicChat> publicChatList = this.<PublicChat, QPublicChat>createList("publicChatList", PublicChat.class, QPublicChat.class, PathInits.DIRECT2);
+
     public final StringPath roomCode = createString("roomCode");
 
     public final StringPath roomName = createString("roomName");

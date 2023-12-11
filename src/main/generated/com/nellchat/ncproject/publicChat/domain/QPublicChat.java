@@ -28,6 +28,8 @@ public class QPublicChat extends EntityPathBase<PublicChat> {
 
     public final StringPath message = createString("message");
 
+    public final QPublicChatRoom publicChatRoom;
+
     public final QPublicChatUser publicChatUser;
 
     public final ListPath<PublicChatUser, QPublicChatUser> publicChatUsers = this.<PublicChatUser, QPublicChatUser>createList("publicChatUsers", PublicChatUser.class, QPublicChatUser.class, PathInits.DIRECT2);
@@ -52,6 +54,7 @@ public class QPublicChat extends EntityPathBase<PublicChat> {
 
     public QPublicChat(Class<? extends PublicChat> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.publicChatRoom = inits.isInitialized("publicChatRoom") ? new QPublicChatRoom(forProperty("publicChatRoom"), inits.get("publicChatRoom")) : null;
         this.publicChatUser = inits.isInitialized("publicChatUser") ? new QPublicChatUser(forProperty("publicChatUser"), inits.get("publicChatUser")) : null;
     }
 

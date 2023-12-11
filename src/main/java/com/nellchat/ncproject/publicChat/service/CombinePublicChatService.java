@@ -99,6 +99,10 @@ public class CombinePublicChatService {
     public void saveForPublicChat(PublicChat publicChat){
         publicChatRepository.save(publicChat);
     }
+
+    public List<PublicChat> findByAllForPublicChat(Long id){
+        return publicChatRepository.findByChatroomId(id);
+    }
     //---------------------------Chat--------------------------------------
 }
 
