@@ -52,7 +52,7 @@
                 </div>
 
                 <div> 채팅방에 입장하시겠습니까?
-                    <form th:action="/joinChatRoom/ext" method="post">
+                    <form th:action="@{/publicChat/joinChatRoom/ext}" method="post">
                         <input type="hidden" name="roomCode" th:value="${publicChatRoomDTO.roomCode}">
                         <button type="submit">네</button>
                     </form>

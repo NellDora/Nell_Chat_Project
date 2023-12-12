@@ -40,6 +40,7 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
 
         String roomCode = extURI(session.getUri().toString());
         log.info("추출한 룸코드 : {}", roomCode);
+        log.info("접속 session의 id 값 : " +session.getId());
 
         if(chatRoomSession.get(roomCode)==null){
             Map<String , WebSocketSession> userSession = new HashMap<>();
@@ -105,6 +106,16 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
+        log.info("소켓 종료");
+        log.info("종료 session의 uri 값 : " +session.getUri().toString());
+
+        String roomCode = extURI(session.getUri().toString());
+        log.info("추출한 룸코드 : {}", roomCode);
+
+        Map<String, WebSocketSession> userSession = chatRoomSession.get(roomCode);
+        log.info("종료 session의 id 값 : " +session.getId());
+        userSession.remove(session.getId());
+
+        log.info("세션 삭제");
     }
 }

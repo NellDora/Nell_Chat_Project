@@ -64,7 +64,7 @@
                                     <button  th:onclick="|location.href='@{/publicChat/roomCode={roomCode}(roomCode=${chatroom.roomCode})}';|">입장하기</button>
                                 </div>
                                 <div th:if="${chatroom.joinState.toString().equals('NO')}">
-                                    <button  th:onclick="|location.href='@{/publicChat/roomCode={roomCode}(roomCode=${chatroom.roomCode})}';|">채팅방 들어가기</button>
+                                    <button  th:onclick="|location.href='@{/publicChat/joinChatRoom/{roomCode}(roomCode=${chatroom.roomCode})}';|">채팅방 들어가기</button>
                                 </div>
                             </td>
 

@@ -138,10 +138,10 @@ public class PublicChatController {
     }
 
 
-    @GetMapping("/joinChatRoom/{chatRoomId}")
-    public String joinChatRoomGET(@PathVariable("chatRoomId")Long id, Model model){
+    @GetMapping("/joinChatRoom/{roomCode}")
+    public String joinChatRoomGET(@PathVariable("roomCode")String roomCode, Model model){
 
-        PublicChatRoom publicChatRoom = combinePublicChatService.findByIdForPublicChatRoom(id);
+        PublicChatRoom publicChatRoom = combinePublicChatService.findByRoomCodeForPublicChatRoom(roomCode);
         log.info("호우호우호우 : {}", publicChatRoom.getRoomCode());
         PublicChatRoomDTO publicChatRoomDTO = new PublicChatRoomDTO();
         publicChatRoomDTO.setId(publicChatRoom.getId());
@@ -161,8 +161,9 @@ public class PublicChatController {
     }
 
     @PostMapping("/joinChatRoom/ext")
-    public String joinChatRoomPOST(@RequestParam("roomCode") String roomCode, @SessionAttribute(LoginSession.Login_User) Long userNum){
+    public String joinChatRoomPOST(@RequestParam("roomCode") String roomCode, @SessionAttribute(LoginSession.Login_User) Long userNum, HttpServletResponse response){
 
+        log.info("joinChatRoom/ext : 호출");
 
         User findUser = userService.findByNumber(userNum);
         PublicChatRoom findPublicChatRoom =  combinePublicChatService.findByRoomCodeForPublicChatRoom(roomCode);
@@ -172,6 +173,19 @@ public class PublicChatController {
         //채팅유저 등록
         combinePublicChatService.saveForPublicChatUser(publicChatUser);
 
-        return "redirect:/publicChat/roomCode="+roomCode;
+        try {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter writer = response.getWriter();
+            String msg = "<script>alert('채팅방에 등록되었습니다. 입장해주세요.');</script>";
+            msg += "<script>location.href='/publicChat/main';</script>";
+            writer.print(msg);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        //return "redirect:/publicChat/main";
+        return null;
     }
 }
