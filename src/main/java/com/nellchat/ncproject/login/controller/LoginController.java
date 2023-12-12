@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -59,5 +61,23 @@ public class LoginController {
         }
 
         return "redirect:/main";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletResponse response){
+        session.invalidate();
+        response.setContentType("text/html; charset=utf-8");
+        try {
+            response.setContentType("text/html; charset=utf-8");
+            PrintWriter writer = response.getWriter();
+
+            String msg = "<script>alert('로그아웃 되었습니다.');</script>";
+            msg += "<script>location.href='/main'</script>;";
+            writer.print(msg);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 }

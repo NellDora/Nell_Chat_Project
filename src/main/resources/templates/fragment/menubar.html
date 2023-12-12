@@ -13,7 +13,9 @@
       </button>
 
       <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-        <a class="navbar-brand col-lg-3 me-0" href="#">메뉴</a>
+        <div th:if="${session.loginUser!=null}">
+          <button type="button" class="Nell" id="Nell">메뉴</button>
+        </div>
         <ul class="navbar-nav col-lg-6 justify-content-lg-center">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" th:href="@{/main/info}">홈페이지 정보</a>

@@ -52,7 +52,10 @@
                 </div>
 
                 <div> 채팅방에 입장하시겠습니까?
-                    <button  th:onclick="|location.href='@{/publicChat/roomCode={roomCode}(roomCode=${chatroom.roomCode})}';|">네</button>
+                    <form th:action="/joinChatRoom/ext" method="post">
+                        <input type="hidden" name="roomCode" th:value="${publicChatRoomDTO.roomCode}">
+                        <button type="submit">네</button>
+                    </form>
                     <button  th:onclick="|location.href='@{/publicChat/main}';|">아니요</button>
                 </div>
 

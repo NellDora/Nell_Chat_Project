@@ -137,8 +137,31 @@ public class PublicChatController {
         return "/publicchat/public_chatroom_info";
     }
 
-    @PostMapping("/joinChatRoom")
-    public String joinChatRoom(@RequestParam("roomCode") String roomCode, @SessionAttribute(LoginSession.Login_User) Long userNum){
+
+    @GetMapping("/joinChatRoom/{chatRoomId}")
+    public String joinChatRoomGET(@PathVariable("chatRoomId")Long id, Model model){
+
+        PublicChatRoom publicChatRoom = combinePublicChatService.findByIdForPublicChatRoom(id);
+        log.info("호우호우호우 : {}", publicChatRoom.getRoomCode());
+        PublicChatRoomDTO publicChatRoomDTO = new PublicChatRoomDTO();
+        publicChatRoomDTO.setId(publicChatRoom.getId());
+        publicChatRoomDTO.setRoomCode(publicChatRoom.getRoomCode());
+        publicChatRoomDTO.setRoomName(publicChatRoom.getRoomName());
+        publicChatRoomDTO.setRoomType(publicChatRoom.getRoomType());
+        publicChatRoomDTO.setMasterId(publicChatRoom.getMaster().getUserId());
+        publicChatRoomDTO.setMasterName(publicChatRoom.getMaster().getUserName());
+        publicChatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getUserNickname());
+        publicChatRoomDTO.setCreateDate(publicChatRoom.getCreateDate());
+        publicChatRoomDTO.setNumberOfPerson(publicChatRoom.getChatUserList().size());
+        publicChatRoomDTO.setDescription(publicChatRoom.getDescription());
+
+        model.addAttribute("publicChatRoomDTO", publicChatRoomDTO);
+
+        return "/publicchat/join_public_chatroom";
+    }
+
+    @PostMapping("/joinChatRoom/ext")
+    public String joinChatRoomPOST(@RequestParam("roomCode") String roomCode, @SessionAttribute(LoginSession.Login_User) Long userNum){
 
 
         User findUser = userService.findByNumber(userNum);
