@@ -93,6 +93,7 @@ public class PublicChatController {
 
         model.addAttribute("roomCode" , roomCode);
         model.addAttribute("userNum", userNum);
+        model.addAttribute("user", findUser);
         return "/publicchat/public_chatroom";
     }
 

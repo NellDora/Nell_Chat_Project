@@ -8,6 +8,7 @@ import com.nellchat.ncproject.user.repository.UserRepository;
 import com.nellchat.ncproject.user.vo.JoinResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void save(User user){
         userRepository.save(user);
@@ -45,7 +47,7 @@ public class UserService {
             joinPasswordCheck(userDTO.getPasswordOne(), userDTO.getPasswordTwo());
 
             log.info("UserService Save : 입력받은 값 = {}", userDTO.toString());
-            userRepository.save(User.createUser(userDTO.getUserId(),userDTO.getPasswordOne(),userDTO.getUserName(), userDTO.getUserNickname(), userDTO.getEmail()));
+            userRepository.save(User.createUser(userDTO.getUserId(),passwordEncoder.encode(userDTO.getPasswordOne()),userDTO.getUserName(), userDTO.getUserNickname(), userDTO.getEmail()));
             joinResult = JoinResult.SUCCESS;
         } catch (IdDuplicationException e) {
             log.info("{}",e);

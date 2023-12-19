@@ -57,4 +57,8 @@ public class User {
         this.userNickname = userNickname;
         this.email = email;
     }
+
+    public void passwordEncoding(String encordingPw){
+        this.password = encordingPw;
+    }
 }
