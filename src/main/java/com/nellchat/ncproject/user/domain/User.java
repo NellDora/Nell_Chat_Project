@@ -61,4 +61,8 @@ public class User {
     public void passwordEncoding(String encordingPw){
         this.password = encordingPw;
     }
+
+    public void updatePassword(String password){
+        this.password=password;
+    }
 }

@@ -85,4 +85,9 @@ public class UserService {
         }
     }
 
+    //패스워드 업데이트
+    public void passwordUpdate(Long number,String password){
+        userRepository.updatePassword(number, passwordEncoder.encode(password));
+    }
+
 }

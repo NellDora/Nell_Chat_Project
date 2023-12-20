@@ -40,4 +40,10 @@ public class JpaUserRepository implements UserRepository{
         return query.select(user).from(user).where(user.userId.eq(id)).fetchOne();
     }
 
+
+    @Override
+    public void updatePassword(Long number, String password) {
+        User findUser = findByNumber(number);
+        findUser.updatePassword(password);
+    }
 }

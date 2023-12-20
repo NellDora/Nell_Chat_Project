@@ -9,4 +9,6 @@ public interface UserRepository {
     public User findByNumber(Long num);
 
     public User findById(String id);
+
+    public void updatePassword(Long number ,String password);
 }
