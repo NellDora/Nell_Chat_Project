@@ -1,11 +1,11 @@
 package com.nellchat.ncproject.publicChat.webSocket;
 
+import com.nellchat.ncproject.member.domain.Member;
 import com.nellchat.ncproject.publicChat.domain.PublicChat;
 import com.nellchat.ncproject.publicChat.domain.PublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.PublicChatUser;
 import com.nellchat.ncproject.publicChat.service.CombinePublicChatService;
-import com.nellchat.ncproject.user.domain.User;
-import com.nellchat.ncproject.user.service.UserService;
+import com.nellchat.ncproject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Slf4j
 public class PublicChatSocketHandler extends TextWebSocketHandler {
 
-    private final UserService userService;
+    private final MemberService memberService;
     private final CombinePublicChatService combinePublicChatService;
 
     Map<String, Map<String, WebSocketSession>> chatRoomSession = new HashMap<>();
@@ -61,7 +61,7 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
         int pos = message.getPayload().indexOf(":");
 
         //유저 번호 추출
-        Long userNum = Long.parseLong(message.getPayload().substring(0,pos));
+        Long memberNum = Long.parseLong(message.getPayload().substring(0,pos));
         String strUsrNum=message.getPayload().substring(0,pos);
 
         //유저가 작성한 메세지 추출
@@ -75,10 +75,12 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
         //룸코드로 채팅방 조회
         PublicChatRoom findPublicChatRoom = combinePublicChatService.findByRoomCodeForPublicChatRoom(roomCode);
 
-        User findUser = userService.findByNumber(userNum);
+        Member findMember = memberService.findByNumber(memberNum);
+        log.info("@@@@@@@@@@@@@@@{}",findMember.getMemberName());
+        log.info("@@@@@@@@@@@@@@@{}",findMember.getMemberId());
 
         PublicChatUser findByPublicChatUser =
-                combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findUser, findPublicChatRoom);
+                combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findMember, findPublicChatRoom);
 
         PublicChat publicChat = PublicChat.createPublicChat(sendMessage,findByPublicChatUser,findPublicChatRoom);
 
@@ -87,7 +89,7 @@ public class PublicChatSocketHandler extends TextWebSocketHandler {
 
         Map<String, WebSocketSession> userSession = chatRoomSession.get(roomCode);
 
-        String pullMessage = findUser.getUserNickname()+" : " + sendMessage;
+        String pullMessage = findMember.getMemberNickname()+" : " + sendMessage;
 
         for(String key : userSession.keySet()){
             WebSocketSession miniSession = userSession.get(key);

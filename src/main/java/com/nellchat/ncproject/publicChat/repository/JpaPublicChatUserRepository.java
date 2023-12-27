@@ -1,12 +1,12 @@
 package com.nellchat.ncproject.publicChat.repository;
 
 
+import com.nellchat.ncproject.member.domain.QMember;
 import com.nellchat.ncproject.publicChat.domain.PublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.PublicChatUser;
 import com.nellchat.ncproject.publicChat.domain.QPublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.QPublicChatUser;
-import com.nellchat.ncproject.user.domain.QUser;
-import com.nellchat.ncproject.user.domain.User;
+import com.nellchat.ncproject.member.domain.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -38,13 +38,15 @@ public class JpaPublicChatUserRepository implements PublicChatUserRepository{
     }
 
     @Override
-    public PublicChatUser findByUserAndPublicChatRoom(User inputUser, PublicChatRoom inputPublicChatRoom) {
+    public PublicChatUser findByUserAndPublicChatRoom(Member inputMember, PublicChatRoom inputPublicChatRoom) {
+
         QPublicChatUser publicChatUser = QPublicChatUser.publicChatUser;
-        QUser user = QUser.user;
+        QMember member = QMember.member;
         QPublicChatRoom publicChatRoom = QPublicChatRoom.publicChatRoom;
-        return query.select(publicChatUser).from(publicChatUser).join(publicChatUser.user, user)
-                .on(publicChatUser.user.number.eq(user.number))
-                .where(publicChatUser.user.number.eq(inputUser.getNumber()).and(publicChatUser.chatRoom.id.eq(inputPublicChatRoom.getId())))
+        return query.select(publicChatUser).from(publicChatUser).join(publicChatUser.member, member)
+                .on(publicChatUser.member.number.eq(member.number))
+                .where(publicChatUser.member.number.eq(inputMember.getNumber()).and(publicChatUser.chatRoom.id.eq(inputPublicChatRoom.getId())))
                 .fetchOne();
+
     }
 }

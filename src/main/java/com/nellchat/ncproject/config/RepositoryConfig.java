@@ -1,7 +1,7 @@
 package com.nellchat.ncproject.config;
 
-import com.nellchat.ncproject.user.repository.JpaUserRepository;
-import com.nellchat.ncproject.user.repository.UserRepository;
+import com.nellchat.ncproject.member.repository.JpaMemberRepository;
+import com.nellchat.ncproject.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,8 @@ public class RepositoryConfig {
     private final EntityManager em;
 
     @Bean
-    public UserRepository userRepository(){
-        return new JpaUserRepository(em);
+    public MemberRepository memberRepository(){
+        return new JpaMemberRepository(em);
     }
 
 }

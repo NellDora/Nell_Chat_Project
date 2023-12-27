@@ -35,7 +35,7 @@
             <div class="inner container" style="width: 60%; margin: auto;">
                 <div class="chat-container">
                     <div>
-                        나의 채팅명 : <div th:text="${user.userNickname}"></div>
+                        나의 채팅명 : <div th:text="${member.memberNickname}"></div>
                     </div>
                     <div id="chat-display"></div>
                     <textarea id="chat-input" placeholder="메시지를 입력하세요..."></textarea>
@@ -62,7 +62,7 @@
 <script src="/js/chat/public_chat.js"></script>
 <script th:inline="javascript">
   var roomCode = [[${roomCode}]];
-  var userNum =[[${userNum}]]
+  var memberNum =[[${memberNum}]]
 </script>
 <script>
       const Nell = document.getElementById('Nell');

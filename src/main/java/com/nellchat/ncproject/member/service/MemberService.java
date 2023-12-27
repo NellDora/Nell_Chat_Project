@@ -1,11 +1,11 @@
-package com.nellchat.ncproject.user.service;
+package com.nellchat.ncproject.member.service;
 
-import com.nellchat.ncproject.user.domain.User;
-import com.nellchat.ncproject.user.dto.UserDTO;
-import com.nellchat.ncproject.user.exception.IdDuplicationException;
-import com.nellchat.ncproject.user.exception.PasswordCheckFailException;
-import com.nellchat.ncproject.user.repository.UserRepository;
-import com.nellchat.ncproject.user.vo.JoinResult;
+import com.nellchat.ncproject.member.domain.Member;
+import com.nellchat.ncproject.member.dto.MemberDTO;
+import com.nellchat.ncproject.member.exception.IdDuplicationException;
+import com.nellchat.ncproject.member.exception.PasswordCheckFailException;
+import com.nellchat.ncproject.member.repository.MemberRepository;
+import com.nellchat.ncproject.member.vo.JoinResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,40 +14,40 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UserService {
+public class MemberService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void save(User user){
-        userRepository.save(user);
+    public void save(Member member){
+        memberRepository.save(member);
     }
 
-    public void updateInfo(User user){
-        User findUser = userRepository.findByNumber(user.getNumber());
-        findUser.updateInfo(user.getUserName(), user.getUserNickname(), user.getEmail());
-
-    }
-
-    public User findByNumber(Long num){
-        return userRepository.findByNumber(num);
+    public void updateInfo(Member member){
+        Member findMember = memberRepository.findByNumber(member.getNumber());
+        findMember.updateInfo(member.getMemberName(), member.getMemberNickname(), member.getEmail());
 
     }
 
-    public User findById(String Id){
-        return  userRepository.findById(Id);
+    public Member findByNumber(Long num){
+        return memberRepository.findByNumber(num);
+
     }
 
-    public JoinResult save(UserDTO userDTO){
+    public Member findById(String Id){
+        return  memberRepository.findById(Id);
+    }
+
+    public JoinResult save(MemberDTO memberDTO){
         JoinResult joinResult = JoinResult.STANDBY;
         try {
-            duplicateCheckId(userDTO.getUserId());
+            duplicateCheckId(memberDTO.getMemberId());
             //아이디 중복 여부에 따라 유저 회원가입이 될지 안될지
 
-            joinPasswordCheck(userDTO.getPasswordOne(), userDTO.getPasswordTwo());
+            joinPasswordCheck(memberDTO.getPasswordOne(), memberDTO.getPasswordTwo());
 
-            log.info("UserService Save : 입력받은 값 = {}", userDTO.toString());
-            userRepository.save(User.createUser(userDTO.getUserId(),passwordEncoder.encode(userDTO.getPasswordOne()),userDTO.getUserName(), userDTO.getUserNickname(), userDTO.getEmail()));
+            log.info("UserService Save : 입력받은 값 = {}", memberDTO.toString());
+            memberRepository.save(Member.createUser(memberDTO.getMemberId(),passwordEncoder.encode(memberDTO.getPasswordOne()), memberDTO.getMemberName(), memberDTO.getMemberNickname(), memberDTO.getEmail()));
             joinResult = JoinResult.SUCCESS;
         } catch (IdDuplicationException e) {
             log.info("{}",e);
@@ -61,9 +61,9 @@ public class UserService {
 
     //아이디 중복 검증
     public void duplicateCheckId(String id) throws IdDuplicationException {
-        User findUsers = null;
+        Member findUsers = null;
         try{
-            findUsers = userRepository.findById(id);
+            findUsers = memberRepository.findById(id);
         }catch (NullPointerException e){
             log.info("중복 발생 에러가 발생한 것인가");
         }finally {
@@ -87,7 +87,7 @@ public class UserService {
 
     //패스워드 업데이트
     public void passwordUpdate(Long number,String password){
-        userRepository.updatePassword(number, passwordEncoder.encode(password));
+        memberRepository.updatePassword(number, passwordEncoder.encode(password));
     }
 
 }

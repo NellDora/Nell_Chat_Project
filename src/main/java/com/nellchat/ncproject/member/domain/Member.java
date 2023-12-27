@@ -1,15 +1,14 @@
-package com.nellchat.ncproject.user.domain;
+package com.nellchat.ncproject.member.domain;
 
 
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 
 @Getter
 @Entity
 @Table(name="user")
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +16,16 @@ public class User {
     private Long number;
 
     @Column(name = "user_id")
-    private String userId;
+    private String memberId;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "user_name")
-    private String userName;
+    private String memberName;
 
     @Column(name = "user_nickname")
-    private String userNickname;
+    private String memberNickname;
 
     private String email;
 
@@ -39,22 +38,22 @@ public class User {
 //
 //    @OneToMany(mappedBy = "relationUser")
 //    private List<Friend> friends = new ArrayList<>();
-    protected User() {
+    protected Member() {
     }
 
-    public static User createUser(String userId, String password, String userName ,String userNickname ,String email){
-        User user = new User();
-        user.userId = userId;
-        user.password = password;
-        user.userNickname = userNickname;
-        user.userName = userName;
-        user.email = email;
-        return  user;
+    public static Member createUser(String memberId, String password, String memberName , String memberNickname , String email){
+        Member member = new Member();
+        member.memberId = memberId;
+        member.password = password;
+        member.memberNickname = memberNickname;
+        member.memberName = memberName;
+        member.email = email;
+        return member;
     }
 
-    public void updateInfo(String userName, String userNickname, String email){
-        this.userName = userName;
-        this.userNickname = userNickname;
+    public void updateInfo(String memberName, String memberNickname, String email){
+        this.memberName = memberName;
+        this.memberNickname = memberNickname;
         this.email = email;
     }
 

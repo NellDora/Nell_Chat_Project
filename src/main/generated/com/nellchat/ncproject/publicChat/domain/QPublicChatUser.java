@@ -28,9 +28,9 @@ public class QPublicChatUser extends EntityPathBase<PublicChatUser> {
 
     public final QPublicChat lastViewChat;
 
-    public final ListPath<PublicChat, QPublicChat> publicChats = this.<PublicChat, QPublicChat>createList("publicChats", PublicChat.class, QPublicChat.class, PathInits.DIRECT2);
+    public final com.nellchat.ncproject.member.domain.QMember member;
 
-    public final com.nellchat.ncproject.user.domain.QUser user;
+    public final ListPath<PublicChat, QPublicChat> publicChats = this.<PublicChat, QPublicChat>createList("publicChats", PublicChat.class, QPublicChat.class, PathInits.DIRECT2);
 
     public QPublicChatUser(String variable) {
         this(PublicChatUser.class, forVariable(variable), INITS);
@@ -52,7 +52,7 @@ public class QPublicChatUser extends EntityPathBase<PublicChatUser> {
         super(type, metadata, inits);
         this.chatRoom = inits.isInitialized("chatRoom") ? new QPublicChatRoom(forProperty("chatRoom"), inits.get("chatRoom")) : null;
         this.lastViewChat = inits.isInitialized("lastViewChat") ? new QPublicChat(forProperty("lastViewChat"), inits.get("lastViewChat")) : null;
-        this.user = inits.isInitialized("user") ? new com.nellchat.ncproject.user.domain.QUser(forProperty("user")) : null;
+        this.member = inits.isInitialized("member") ? new com.nellchat.ncproject.member.domain.QMember(forProperty("member")) : null;
     }
 
 }

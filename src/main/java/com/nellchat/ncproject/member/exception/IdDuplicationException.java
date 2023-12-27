@@ -1,4 +1,4 @@
-package com.nellchat.ncproject.user.exception;
+package com.nellchat.ncproject.member.exception;
 
 public class IdDuplicationException extends Exception{
 

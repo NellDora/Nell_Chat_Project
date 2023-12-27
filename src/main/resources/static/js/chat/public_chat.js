@@ -53,7 +53,7 @@
 
         if (message !== "") {
         //넘길때 유저 번호 + 채팅 내용 둘다 넘기기로 했음
-          ws.send(userNum+":"+message);
+          ws.send(memberNum+":"+message);
           chatInput.value = "";
         }
       }

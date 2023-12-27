@@ -1,4 +1,4 @@
-package com.nellchat.ncproject.user.vo;
+package com.nellchat.ncproject.member.vo;
 
 public enum JoinResult {
 

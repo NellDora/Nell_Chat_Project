@@ -2,13 +2,13 @@ package com.nellchat.ncproject.publicChat.controller;
 
 
 import com.nellchat.ncproject.login.loginConst.LoginSession;
+import com.nellchat.ncproject.member.domain.Member;
 import com.nellchat.ncproject.publicChat.domain.PublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.PublicChatUser;
 import com.nellchat.ncproject.publicChat.dto.PublicChatRoomDTO;
 import com.nellchat.ncproject.publicChat.service.CombinePublicChatService;
 import com.nellchat.ncproject.publicChat.vo.JoinState;
-import com.nellchat.ncproject.user.domain.User;
-import com.nellchat.ncproject.user.service.UserService;
+import com.nellchat.ncproject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,12 +29,12 @@ public class PublicChatController {
 
 
     private final CombinePublicChatService combinePublicChatService;
-    private final UserService userService;
+    private final MemberService memberService;
 
     @GetMapping("/main")
     public String chatList(Model model, @SessionAttribute(LoginSession.Login_User) Long userNum){
 
-        User findUser = userService.findByNumber(userNum);
+        Member findMember = memberService.findByNumber(userNum);
 
         List<PublicChatRoom> chatRoomList = combinePublicChatService.findByAllWithPagingForPublicChatRoom(0,10);
         List<PublicChatRoomDTO> chatRoomDTOS = new ArrayList<>();
@@ -44,14 +44,14 @@ public class PublicChatController {
             chatRoomDTO.setRoomCode(publicChatRoom.getRoomCode());
             chatRoomDTO.setRoomName(publicChatRoom.getRoomName());
             chatRoomDTO.setRoomType(publicChatRoom.getRoomType());
-            chatRoomDTO.setMasterId(publicChatRoom.getMaster().getUserId());
-            chatRoomDTO.setMasterName(publicChatRoom.getMaster().getUserName());
-            chatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getUserNickname());
+            chatRoomDTO.setMasterId(publicChatRoom.getMaster().getMemberId());
+            chatRoomDTO.setMasterName(publicChatRoom.getMaster().getMemberName());
+            chatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getMemberNickname());
             chatRoomDTO.setCreateDate(publicChatRoom.getCreateDate());
             chatRoomDTO.setNumberOfPerson(publicChatRoom.getChatUserList().size());
 
 
-            if(combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findUser,publicChatRoom)==null){
+            if(combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findMember,publicChatRoom)==null){
                 chatRoomDTO.setJoinState(JoinState.NO);
             }else{
                 chatRoomDTO.setJoinState(JoinState.YES);
@@ -69,16 +69,16 @@ public class PublicChatController {
 
     @GetMapping("/roomCode={roomCode}")
     public String publicChatRoom(@PathVariable("roomCode") String roomCode, Model model,
-                                 @SessionAttribute(LoginSession.Login_User) Long userNum, HttpServletResponse response){
+                                 @SessionAttribute(LoginSession.Login_User) Long memberNum, HttpServletResponse response){
         log.info("받아온 roomCode는 : {}",roomCode);
         PublicChatRoom findPublicChatRoom =
                 combinePublicChatService.findByRoomCodeForPublicChatRoom(roomCode);
 
-        User findUser = userService.findByNumber(userNum);
+        Member findMember = memberService.findByNumber(memberNum);
 
 
         try {
-            if(combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findUser, findPublicChatRoom)==null) {
+            if(combinePublicChatService.findByUserAndPublicChatRoomForPublicChatUser(findMember, findPublicChatRoom)==null) {
                 response.setContentType("text/html;  charset=UTF-8");
                 String message = "<script>alert('허가되지 않은 채팅방 유저입니다.')</script>";
                 message += "<script>history.back()</script>";
@@ -92,8 +92,8 @@ public class PublicChatController {
 
 
         model.addAttribute("roomCode" , roomCode);
-        model.addAttribute("userNum", userNum);
-        model.addAttribute("user", findUser);
+        model.addAttribute("memberNum", memberNum);
+        model.addAttribute("member", findMember);
         return "/publicchat/public_chatroom";
     }
 
@@ -106,11 +106,11 @@ public class PublicChatController {
     @PostMapping("/createChatRoom")
     public String createChatRoom(@ModelAttribute("publicChatRoomDTO") PublicChatRoomDTO publicChatRoomDTO , @SessionAttribute(LoginSession.Login_User) Long userNum){
 
-        User findUser = userService.findByNumber(userNum);
+        Member findMember = memberService.findByNumber(userNum);
 
         PublicChatRoom publicChatRoom =
                 PublicChatRoom.createPublicChatRoom(publicChatRoomDTO.getRoomName(),
-                        publicChatRoomDTO.getDescription(),findUser, publicChatRoomDTO.getRoomType(), publicChatRoomDTO.getPassword());
+                        publicChatRoomDTO.getDescription(), findMember, publicChatRoomDTO.getRoomType(), publicChatRoomDTO.getPassword());
 
         combinePublicChatService.saveForPublicChatRoom(publicChatRoom);
 
@@ -126,9 +126,9 @@ public class PublicChatController {
         publicChatRoomDTO.setRoomCode(publicChatRoom.getRoomCode());
         publicChatRoomDTO.setRoomName(publicChatRoom.getRoomName());
         publicChatRoomDTO.setRoomType(publicChatRoom.getRoomType());
-        publicChatRoomDTO.setMasterId(publicChatRoom.getMaster().getUserId());
-        publicChatRoomDTO.setMasterName(publicChatRoom.getMaster().getUserName());
-        publicChatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getUserNickname());
+        publicChatRoomDTO.setMasterId(publicChatRoom.getMaster().getMemberId());
+        publicChatRoomDTO.setMasterName(publicChatRoom.getMaster().getMemberName());
+        publicChatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getMemberNickname());
         publicChatRoomDTO.setCreateDate(publicChatRoom.getCreateDate());
         publicChatRoomDTO.setNumberOfPerson(publicChatRoom.getChatUserList().size());
         publicChatRoomDTO.setDescription(publicChatRoom.getDescription());
@@ -149,9 +149,9 @@ public class PublicChatController {
         publicChatRoomDTO.setRoomCode(publicChatRoom.getRoomCode());
         publicChatRoomDTO.setRoomName(publicChatRoom.getRoomName());
         publicChatRoomDTO.setRoomType(publicChatRoom.getRoomType());
-        publicChatRoomDTO.setMasterId(publicChatRoom.getMaster().getUserId());
-        publicChatRoomDTO.setMasterName(publicChatRoom.getMaster().getUserName());
-        publicChatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getUserNickname());
+        publicChatRoomDTO.setMasterId(publicChatRoom.getMaster().getMemberId());
+        publicChatRoomDTO.setMasterName(publicChatRoom.getMaster().getMemberName());
+        publicChatRoomDTO.setMasterNickName(publicChatRoom.getMaster().getMemberNickname());
         publicChatRoomDTO.setCreateDate(publicChatRoom.getCreateDate());
         publicChatRoomDTO.setNumberOfPerson(publicChatRoom.getChatUserList().size());
         publicChatRoomDTO.setDescription(publicChatRoom.getDescription());
@@ -166,11 +166,11 @@ public class PublicChatController {
 
         log.info("joinChatRoom/ext : 호출");
 
-        User findUser = userService.findByNumber(userNum);
+        Member findMember = memberService.findByNumber(userNum);
         PublicChatRoom findPublicChatRoom =  combinePublicChatService.findByRoomCodeForPublicChatRoom(roomCode);
 
         //채팅방 유저 생성
-        PublicChatUser publicChatUser = PublicChatUser.createPublicChatUser(findPublicChatRoom, findUser);
+        PublicChatUser publicChatUser = PublicChatUser.createPublicChatUser(findPublicChatRoom, findMember);
         //채팅유저 등록
         combinePublicChatService.saveForPublicChatUser(publicChatUser);
 

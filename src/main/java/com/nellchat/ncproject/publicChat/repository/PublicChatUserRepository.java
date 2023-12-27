@@ -1,8 +1,8 @@
 package com.nellchat.ncproject.publicChat.repository;
 
+import com.nellchat.ncproject.member.domain.Member;
 import com.nellchat.ncproject.publicChat.domain.PublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.PublicChatUser;
-import com.nellchat.ncproject.user.domain.User;
 
 public interface PublicChatUserRepository {
 
@@ -11,6 +11,6 @@ public interface PublicChatUserRepository {
 
     public PublicChatUser findById(Long id);
 
-    public PublicChatUser findByUserAndPublicChatRoom(User user, PublicChatRoom publicChatRoom);
+    public PublicChatUser findByUserAndPublicChatRoom(Member member, PublicChatRoom publicChatRoom);
 
 }

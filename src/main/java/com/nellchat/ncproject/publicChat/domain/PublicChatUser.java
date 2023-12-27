@@ -1,6 +1,6 @@
 package com.nellchat.ncproject.publicChat.domain;
 
-import com.nellchat.ncproject.user.domain.User;
+import com.nellchat.ncproject.member.domain.Member;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class PublicChatUser {
 
     @ManyToOne
     @JoinColumn(name = "user_number")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "last_view_chat")
@@ -37,10 +37,10 @@ public class PublicChatUser {
     protected PublicChatUser() {
     }
 
-    public static PublicChatUser createPublicChatUser(PublicChatRoom chatRoom, User user){
+    public static PublicChatUser createPublicChatUser(PublicChatRoom chatRoom, Member member){
         PublicChatUser publicChatUser = new PublicChatUser();
         publicChatUser.chatRoom = chatRoom;
-        publicChatUser.user = user;
+        publicChatUser.member = member;
         return publicChatUser;
     }
 }

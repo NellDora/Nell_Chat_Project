@@ -5,8 +5,8 @@ import com.nellchat.ncproject.login.exception.IdValidationException;
 import com.nellchat.ncproject.login.exception.PasswordValidationException;
 import com.nellchat.ncproject.login.loginConst.LoginSession;
 import com.nellchat.ncproject.login.service.LoginService;
-import com.nellchat.ncproject.user.domain.User;
-import com.nellchat.ncproject.user.service.UserService;
+import com.nellchat.ncproject.member.domain.Member;
+import com.nellchat.ncproject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.io.PrintWriter;
 public class LoginController {
 
     private final LoginService loginService;
-    private final UserService userService;
+    private final MemberService memberService;
 
 
     @GetMapping("/login")
@@ -43,12 +43,12 @@ public class LoginController {
         String view ="";
 
         try {
-            loginService.loginCheck(loginDTO.getUserId(),loginDTO.getPassword());
+            loginService.loginCheck(loginDTO.getMemberId(),loginDTO.getPassword());
 
-            User findUser = userService.findById(loginDTO.getUserId());
+            Member findMember = memberService.findById(loginDTO.getMemberId());
 
             HttpSession session = request.getSession();
-            session.setAttribute(LoginSession.Login_User,findUser.getNumber());
+            session.setAttribute(LoginSession.Login_User, findMember.getNumber());
 
             log.info("로그인 성공");
 

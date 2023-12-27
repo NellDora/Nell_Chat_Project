@@ -30,7 +30,7 @@ public class QPublicChatRoom extends EntityPathBase<PublicChatRoom> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.nellchat.ncproject.user.domain.QUser master;
+    public final com.nellchat.ncproject.member.domain.QMember master;
 
     public final StringPath password = createString("password");
 
@@ -60,7 +60,7 @@ public class QPublicChatRoom extends EntityPathBase<PublicChatRoom> {
 
     public QPublicChatRoom(Class<? extends PublicChatRoom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.master = inits.isInitialized("master") ? new com.nellchat.ncproject.user.domain.QUser(forProperty("master")) : null;
+        this.master = inits.isInitialized("master") ? new com.nellchat.ncproject.member.domain.QMember(forProperty("master")) : null;
     }
 
 }

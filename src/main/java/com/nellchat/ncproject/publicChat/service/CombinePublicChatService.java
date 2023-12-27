@@ -1,5 +1,6 @@
 package com.nellchat.ncproject.publicChat.service;
 
+import com.nellchat.ncproject.member.domain.Member;
 import com.nellchat.ncproject.publicChat.domain.PublicChat;
 import com.nellchat.ncproject.publicChat.domain.PublicChatRoom;
 import com.nellchat.ncproject.publicChat.domain.PublicChatUser;
@@ -7,7 +8,6 @@ import com.nellchat.ncproject.publicChat.exception.PublicChatUserDuplicationExce
 import com.nellchat.ncproject.publicChat.repository.PublicChatRepository;
 import com.nellchat.ncproject.publicChat.repository.PublicChatRoomRepository;
 import com.nellchat.ncproject.publicChat.repository.PublicChatUserRepository;
-import com.nellchat.ncproject.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,7 +64,7 @@ public class CombinePublicChatService {
 
         try {
             //유저 저장 전 검증로직
-            CheckDuplicationChatUser(publicChatUser.getUser(),publicChatUser.getChatRoom());
+            CheckDuplicationChatUser(publicChatUser.getMember(),publicChatUser.getChatRoom());
 
 
             publicChatUserRepository.save(publicChatUser);
@@ -80,16 +80,16 @@ public class CombinePublicChatService {
     }
 
     //채팅방내 특정유저 중복 검증
-    public void CheckDuplicationChatUser(User user, PublicChatRoom publicChatRoom) throws PublicChatUserDuplicationException {
-        if(publicChatUserRepository.findByUserAndPublicChatRoom(user,publicChatRoom)==null){
+    public void CheckDuplicationChatUser(Member member, PublicChatRoom publicChatRoom) throws PublicChatUserDuplicationException {
+        if(publicChatUserRepository.findByUserAndPublicChatRoom(member,publicChatRoom)==null){
             log.info("CombinePublicChatService : 중복 검증 문제 없음");
         }else{
             throw new PublicChatUserDuplicationException("이미 해당 채팅방에 존재하는 유저입니다");
         }
     }
 
-    public PublicChatUser findByUserAndPublicChatRoomForPublicChatUser(User user , PublicChatRoom publicChatRoom){
-        return publicChatUserRepository.findByUserAndPublicChatRoom(user, publicChatRoom);
+    public PublicChatUser findByUserAndPublicChatRoomForPublicChatUser(Member member, PublicChatRoom publicChatRoom){
+        return publicChatUserRepository.findByUserAndPublicChatRoom(member, publicChatRoom);
     }
     //---------------------------ChatUser---------------------------------
 

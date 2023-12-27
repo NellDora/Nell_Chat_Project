@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,7 +63,7 @@ public class FileExtractionService {
 
             // 다음 열(1번 열)에 데이터 추가
             Cell cell1_1 = row2.createCell(1);
-            cell1_1.setCellValue(publicChat.getPublicChatUser().getUser().getUserName());
+            cell1_1.setCellValue(publicChat.getPublicChatUser().getMember().getMemberName());
 
             Cell cell1_2 = row2.createCell(2);
             cell1_2.setCellValue(publicChat.getMessage());

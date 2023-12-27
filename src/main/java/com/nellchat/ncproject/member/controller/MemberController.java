@@ -1,9 +1,9 @@
-package com.nellchat.ncproject.user.controller;
+package com.nellchat.ncproject.member.controller;
 
-import com.nellchat.ncproject.user.dto.UserDTO;
-import com.nellchat.ncproject.user.exception.IdDuplicationException;
-import com.nellchat.ncproject.user.exception.PasswordCheckFailException;
-import com.nellchat.ncproject.user.service.UserService;
+import com.nellchat.ncproject.member.dto.MemberDTO;
+import com.nellchat.ncproject.member.exception.IdDuplicationException;
+import com.nellchat.ncproject.member.exception.PasswordCheckFailException;
+import com.nellchat.ncproject.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,27 +19,27 @@ import java.io.PrintWriter;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class UserController {
+public class MemberController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @GetMapping("/join")
     public String joinView(Model model)
     {
-        model.addAttribute("userDTO", new UserDTO());
+        model.addAttribute("userDTO", new MemberDTO());
         return "/join/join";
 
     }
 
     //회원가입 처리
     @PostMapping("/join")
-    public String joinAction(@ModelAttribute(value = "userDTO") UserDTO userDTO, HttpServletResponse response) throws IOException {
+    public String joinAction(@ModelAttribute(value = "userDTO") MemberDTO memberDTO, HttpServletResponse response) throws IOException {
 
-        log.info("입력 받은 값 = {}, {}, {}, {}",userDTO.getUserId(),userDTO.getPasswordOne(), userDTO.getPasswordTwo());
+        log.info("입력 받은 값 = {}, {}, {}, {}", memberDTO.getMemberId(), memberDTO.getPasswordOne(), memberDTO.getPasswordTwo());
         //우선 아이디 중복 확인
         int nextProcess = 0;
         try {
-            userService.duplicateCheckId(userDTO.getUserId());
+            memberService.duplicateCheckId(memberDTO.getMemberId());
         } catch (IdDuplicationException e) {
             log.info("User Controller : 아이디 중복 문제 발생 : ={} ", e);
             nextProcess=1;
@@ -54,7 +54,7 @@ public class UserController {
         if(nextProcess!=1){
             //비밀번호 검증 확인
             try {
-                userService.joinPasswordCheck(userDTO.getPasswordOne(), userDTO.getPasswordTwo());
+                memberService.joinPasswordCheck(memberDTO.getPasswordOne(), memberDTO.getPasswordTwo());
             } catch (PasswordCheckFailException e) {
                 log.info("User Controller : 비밀번호 검증 문제 발생 : ={} ", e);
                 response.setContentType("text/html; charset=utf-8");
@@ -66,7 +66,7 @@ public class UserController {
                 advise.flush();
             }
             //userDTO -> user 전환 저장
-            userService.save(userDTO);
+            memberService.save(memberDTO);
 
 
 

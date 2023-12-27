@@ -1,7 +1,7 @@
 package com.nellchat.ncproject.publicChat.domain;
 
+import com.nellchat.ncproject.member.domain.Member;
 import com.nellchat.ncproject.publicChat.vo.RoomType;
-import com.nellchat.ncproject.user.domain.User;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.WebSocketSession;
@@ -35,7 +35,7 @@ public class PublicChatRoom {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="master")
-    private User master;
+    private Member master;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -48,7 +48,7 @@ public class PublicChatRoom {
     private String password;
 
     @Transient
-    private Map<User, WebSocketSession> chatRoomSession = new ConcurrentHashMap<>();
+    private Map<Member, WebSocketSession> chatRoomSession = new ConcurrentHashMap<>();
 
     @OneToMany(mappedBy = "chatRoom")
     List<PublicChatUser> chatUserList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class PublicChatRoom {
     protected PublicChatRoom() {
     }
 
-    public static PublicChatRoom createPublicChatRoom(String roomName,String description, User master, RoomType roomType, String password){
+    public static PublicChatRoom createPublicChatRoom(String roomName, String description, Member master, RoomType roomType, String password){
         PublicChatRoom chatRoom = new PublicChatRoom();
         chatRoom.roomName = roomName;
         chatRoom.description=description;
