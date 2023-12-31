@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -25,10 +25,10 @@
       <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
     </div>
 
-    <button th:if="${session.loginUser==null}" type="button" th:onclick="|location.href='@{/login}';|" class="btn btn-secondary position-relative">
+    <button sec:authorize="isAnonymous()" type="button" th:onclick="|location.href='@{/securityLogin}';|" class="btn btn-secondary position-relative">
       로그인
     </button>
-    <button th:if="${session.loginUser!=null}" type="button" th:onclick="|location.href='@{/logout}';|" class="btn btn-secondary position-relative">
+    <button sec:authorize="isAuthenticated()" type="button" th:onclick="|location.href='@{/logout}';|" class="btn btn-secondary position-relative">
       로그아웃
     </button>
 

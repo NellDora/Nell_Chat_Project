@@ -36,6 +36,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Member findById(String id) {
+        log.info("@@@@@@@@@@ MemberDAO findById 전달받은 id값 {} @@@@@@@@@@@", id);
         QMember member = QMember.member;
         return query.select(member).from(member).where(member.memberId.eq(id)).fetchOne();
 
